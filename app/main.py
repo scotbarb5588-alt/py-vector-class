@@ -2,9 +2,13 @@ import math
 
 
 class Vector:
-    def __init__(self, x: float, y: float) -> None:
-        self.x = round(x, 2)
-        self.y = round(y, 2)
+    def __init__(
+        self,
+        coordinate_x: float,
+        coordinate_y: float
+    ) -> None:
+        self.x = round(coordinate_x, 2)
+        self.y = round(coordinate_y, 2)
 
     def __add__(self, other: "Vector") -> "Vector":
         return Vector(
@@ -18,7 +22,10 @@ class Vector:
             self.y - other.y
         )
 
-    def __mul__(self, other):
+    def __mul__(
+        self,
+        other: "Vector | int | float"
+    ) -> "Vector | float":
         if isinstance(other, Vector):
             return self.x * other.x + self.y * other.y
 
@@ -39,7 +46,9 @@ class Vector:
         )
 
     def get_length(self) -> float:
-        return math.sqrt(self.x ** 2 + self.y ** 2)
+        return math.sqrt(
+            self.x ** 2 + self.y ** 2
+        )
 
     def get_normalized(self) -> "Vector":
         length = self.get_length()
@@ -53,7 +62,9 @@ class Vector:
         )
 
     def angle_between(self, vector: "Vector") -> int:
-        lengths_product = self.get_length() * vector.get_length()
+        lengths_product = (
+            self.get_length() * vector.get_length()
+        )
 
         if lengths_product == 0:
             raise ValueError(
@@ -63,7 +74,9 @@ class Vector:
         cos_a = (self * vector) / lengths_product
         cos_a = max(-1.0, min(1.0, cos_a))
 
-        return round(math.degrees(math.acos(cos_a)))
+        return round(
+            math.degrees(math.acos(cos_a))
+        )
 
     def get_angle(self) -> int:
         return self.angle_between(Vector(0, 1))
